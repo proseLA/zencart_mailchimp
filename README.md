@@ -12,7 +12,5 @@ This example is used in the following Zen Cart contributions:
 * [MailChimp Integration](Zen Cart MailChimp)
 * [Newsletter Discount](Zen Cart Newsletter Discount)
 
-## Overview:
-
 
 This code is released under the GPL. 
