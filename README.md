@@ -9,8 +9,8 @@ This work is based on a [this PR](https://github.com/mailchimp/APIv3-examples/pu
 
 This example is used in the following Zen Cart contributions: 
 
-* [MailChimp Integration](Zen Cart MailChimp)
-* [Newsletter Discount](Zen Cart Newsletter Discount)
+* [MailChimp Integration](https://www.thatsoftwareguy.com/zencart_mailchimp.html)
+* [Newsletter Discount](https://www.thatsoftwareguy.com/zencart_newsletter_discount.html)
 
 
 This code is released under the GPL. 
