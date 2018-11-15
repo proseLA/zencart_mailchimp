@@ -14,7 +14,7 @@ $reply = $mailchimp->list_check_subscriber([
     'id_list' => BOX_MAILCHIMP_NEWSLETTER_ID, 
     'email' => $email
 ]);
-if (isset($reply->errors)) {
+if (isset($reply->type)) {
     $errorMessage = "Unable to run check_subscriber command()!\n" .
        "\tMsg=" . print_r($reply, true) . "\n";
     echo $errorMessage;
@@ -28,11 +28,11 @@ if (isset($reply->status) && $reply->status == 'subscribed') {
 
 // Testcase for subscribe - used in Mailchimp Integration 
 $email = 'test@some-test-domain.com'; 
-$reply = $mailchimp->list_check_subscriber([
+$reply = $mailchimp->list_add_subscriber([
     'id_list' => BOX_MAILCHIMP_NEWSLETTER_ID, 
     'email' => $email
 ]);
-if (isset($reply->errors)) {
+if (isset($reply->type)) {
     $errorMessage = "Unable to run add_subscriber command()!\n" .
        "\tMsg=" . print_r($reply, true) . "\n";
     echo $errorMessage;

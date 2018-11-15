@@ -1,6 +1,6 @@
 # MailChimp Integration for Zen Cart
 
-Version 4.0
+Version 4.2
 
 Author: Scott Wilson
 <http://www.thatsoftwareguy.com>

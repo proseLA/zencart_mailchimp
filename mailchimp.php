@@ -90,7 +90,8 @@ class MailChimp {
         $endpoint = '/lists/' . $options['id_list'] . '/members/';
         $payload = [
             'email_address' => $options['email'],
-            'status' => isset($options['status']) ? $options['status'] : 'pending',
+            'status' => 'subscribed', 
+            // 'status' => isset($options['status']) ? $options['status'] : 'pending',
         ];
         if (isset($options['merge_fields']) AND $options['merge_fields'])
         {
@@ -98,6 +99,34 @@ class MailChimp {
         }
 
         return $this->_execute_request('POST', $endpoint, $payload);
+    }
+
+    /**
+     * List: Delete a subscriber
+     * @docs http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
+     * @param array $options
+     * @return mixed
+     * @throws MailChimpException
+     *
+     * Usage Example:
+     *         $obj->list_del_subscriber([
+     *             'id_list' => 'ID_LIST',    // Required
+     *             'email' => 'EMAIL'         // Required
+      *         ]);
+     *
+     */
+    public function list_del_subscriber(Array $options)
+    {
+        // Check required params
+        if ( ! isset($options['id_list']) OR ! isset($options['email']))
+        {
+            throw new MailChimpException('Parameters not set on '.__METHOD__);
+        }
+
+        $subscriber_hash = md5(strtolower($options['email']));
+        $payload = array(); 
+        $endpoint = '/lists/' . $options['id_list'] . '/members/'.$subscriber_hash;
+        return $this->_execute_request('DELETE', $endpoint, $payload);
     }
 
     /**
