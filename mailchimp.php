@@ -41,6 +41,10 @@ class MailChimp {
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
                 break;
+            case 'PATCH':
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+                break;
             case 'GET':
                 $endpoint .= '?' . http_build_query($payload);
                 break;
@@ -91,7 +95,6 @@ class MailChimp {
         $payload = [
             'email_address' => $options['email'],
             'status' => 'subscribed', 
-            // 'status' => isset($options['status']) ? $options['status'] : 'pending',
         ];
         if (isset($options['merge_fields']) AND $options['merge_fields'])
         {
@@ -99,6 +102,27 @@ class MailChimp {
         }
 
         return $this->_execute_request('POST', $endpoint, $payload);
+    }
+
+    public function list_update_subscriber(Array $options)
+    {
+        // Check required params
+        if ( ! isset($options['id_list']) OR ! isset($options['email']))
+        {
+            throw new MailChimpException('Parameters not set on '.__METHOD__);
+        }
+        $subscriber_hash = md5(strtolower($options['email'])); 
+        $endpoint = '/lists/' . $options['id_list'] . '/members/' . $subscriber_hash;
+
+        $payload = [
+            'email_address' => $options['email'],
+        ];
+        if (isset($options['merge_fields']) AND $options['merge_fields'])
+        {
+            $payload['merge_fields'] = $options['merge_fields'];
+        }
+
+        return $this->_execute_request('PATCH', $endpoint, $payload);
     }
 
     /**
